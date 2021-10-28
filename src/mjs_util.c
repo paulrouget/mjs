@@ -93,8 +93,6 @@ void mjs_fprintf(mjs_val_t v, struct mjs *mjs, FILE *fp) {
   mjs_jprintf(v, mjs, &out);
 }
 
-#if MJS_ENABLE_DEBUG
-
 MJS_PRIVATE const char *opcodetostr(uint8_t opcode) {
   static const char *names[] = {
       "NOP", "DROP", "DUP", "SWAP", "JMP", "JMP_TRUE", "JMP_NEUTRAL_TRUE",
@@ -273,6 +271,8 @@ void mjs_disasm(const uint8_t *code, size_t len) {
   }
 }
 
+#if MJS_ENABLE_DEBUG
+
 static void mjs_dump_obj_stack(const char *name, const struct mbuf *m,
                                struct mjs *mjs) {
   char buf[50];
@@ -303,6 +303,8 @@ void mjs_dump(struct mjs *mjs, int do_disasm) {
   }
   LOG(LL_VERBOSE_DEBUG, ("------- MJS VM DUMP END"));
 }
+
+#endif
 
 MJS_PRIVATE int mjs_check_arg(struct mjs *mjs, int arg_num,
                               const char *arg_name, enum mjs_type expected_type,
@@ -427,5 +429,3 @@ int mjs_get_offset_by_call_frame_num(struct mjs *mjs, int cf_num) {
   }
   return ret;
 }
-
-#endif
