@@ -93,6 +93,8 @@ void mjs_fprintf(mjs_val_t v, struct mjs *mjs, FILE *fp) {
   mjs_jprintf(v, mjs, &out);
 }
 
+#if MJS_ENABLE_DEBUG
+
 MJS_PRIVATE const char *opcodetostr(uint8_t opcode) {
   static const char *names[] = {
       "NOP", "DROP", "DUP", "SWAP", "JMP", "JMP_TRUE", "JMP_NEUTRAL_TRUE",
@@ -270,8 +272,6 @@ void mjs_disasm(const uint8_t *code, size_t len) {
     }
   }
 }
-
-#if MJS_ENABLE_DEBUG
 
 static void mjs_dump_obj_stack(const char *name, const struct mbuf *m,
                                struct mjs *mjs) {

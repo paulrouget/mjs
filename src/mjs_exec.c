@@ -584,7 +584,9 @@ MJS_PRIVATE mjs_err_t mjs_execute(struct mjs *mjs, size_t off, mjs_val_t *res) {
 #endif
 
     code = (const uint8_t *) bp.data.p;
+#if MJS_ENABLE_DEBUG
     mjs_disasm_single(code, i);
+#endif
     prev_opcode = opcode;
     opcode = code[i];
     switch (opcode) {
